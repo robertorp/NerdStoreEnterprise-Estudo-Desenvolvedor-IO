@@ -91,7 +91,6 @@ namespace NSE.Identidade.API.Controllers
 
             return ObterRespostaToken(encodedToken, user, claims);
         }
-
         private async Task<ClaimsIdentity> ObterClaimsUsuario(IList<Claim> claims, IdentityUser user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -146,7 +145,6 @@ namespace NSE.Identidade.API.Controllers
 
             return response;
         }
-
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero))
                 .TotalSeconds);
