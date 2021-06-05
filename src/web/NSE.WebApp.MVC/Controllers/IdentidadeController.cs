@@ -83,7 +83,7 @@ namespace NSE.WebApp.MVC.Controllers
 
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.Now.AddMilliseconds(60),
+                ExpiresUtc = DateTimeOffset.Now.AddMinutes(60),
                 IsPersistent = true
             };
 
