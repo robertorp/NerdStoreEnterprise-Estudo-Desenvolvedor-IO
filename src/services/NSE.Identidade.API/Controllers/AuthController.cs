@@ -111,6 +111,9 @@ namespace NSE.Identidade.API.Controllers
 
             return identityClaims;
         }
+        private static long ToUnixEpochDate(DateTime date)
+            => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero))
+                .TotalSeconds);
         private string CodificarToken(ClaimsIdentity identityClaims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -145,8 +148,5 @@ namespace NSE.Identidade.API.Controllers
 
             return response;
         }
-        private static long ToUnixEpochDate(DateTime date)
-            => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero))
-                .TotalSeconds);
     }
 }
