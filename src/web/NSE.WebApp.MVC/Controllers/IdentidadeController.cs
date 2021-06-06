@@ -11,7 +11,7 @@ using NSE.WebApp.MVC.Services;
 
 namespace NSE.WebApp.MVC.Controllers
 {
-    public class IdentidadeController : Controller
+    public class IdentidadeController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
@@ -35,9 +35,9 @@ namespace NSE.WebApp.MVC.Controllers
 
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
-            //if (false) return View(usuarioRegistro);
-            await RealizarLogin(resposta);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
 
+            await RealizarLogin(resposta);
 
             return RedirectToAction("Index", "Home");
         }
@@ -57,9 +57,9 @@ namespace NSE.WebApp.MVC.Controllers
 
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
-            //if (false) return View(usuarioLogin);
-            await RealizarLogin(resposta);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
 
+            await RealizarLogin(resposta);
 
             return RedirectToAction("Index", "Home");
         }
@@ -68,6 +68,8 @@ namespace NSE.WebApp.MVC.Controllers
         [Route("sair")]
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -93,7 +95,6 @@ namespace NSE.WebApp.MVC.Controllers
                 authProperties
             );
         }
-
         private static JwtSecurityToken ObterTokenFormatado(string jwtToken)
         {
             return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
