@@ -1,8 +1,9 @@
 ﻿using System;
+using NSE.Core.DomainObjects;
 
 namespace NSE.Catalogo.API.Models
 {
-    public class Produto
+    public class Produto : Entity
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
