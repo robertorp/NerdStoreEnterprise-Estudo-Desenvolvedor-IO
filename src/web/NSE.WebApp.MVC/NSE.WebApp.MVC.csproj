@@ -12,9 +12,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <PackageReference Include="Refit" Version="6.0.38" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\Handlers\" />
     <Folder Include="wwwroot\fonts\fontawesome\" />
   </ItemGroup>
 
