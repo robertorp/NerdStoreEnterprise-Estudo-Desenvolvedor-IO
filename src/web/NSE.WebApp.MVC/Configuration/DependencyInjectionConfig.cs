@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NSE.WebApp.MVC.Extensions;
 using NSE.WebApp.MVC.Services;
@@ -10,17 +8,13 @@ namespace NSE.WebApp.MVC.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices(this IServiceCollection services)
         {
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
-            services.AddHttpClient("Refit", options =>
-                {
-                    options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
-                })
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                .AddTypedClient(Refit.RestService.For<ICatalogoService>);
+            services.AddHttpClient<ICatalogoService, CatalogoService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
