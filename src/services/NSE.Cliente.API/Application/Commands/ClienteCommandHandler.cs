@@ -11,6 +11,8 @@ namespace NSE.Cliente.API.Application.Commands
         {
             if (!message.EhValido()) return message.ValidationResult;
 
+            var cliente = new Models.Cliente(message.Id, message.Nome, message.Email, message.Cpf);
+
 
 
             return message.ValidationResult;
