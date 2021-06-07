@@ -24,7 +24,7 @@ namespace NSE.Cliente.API.Application.Commands
 
             var cliente = new Models.Cliente(message.Id, message.Nome, message.Email, message.Cpf);
 
-            var clienteExistente = _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
+            var clienteExistente = await _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
 
             if (clienteExistente != null)
             {

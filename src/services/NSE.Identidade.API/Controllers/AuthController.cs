@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -33,6 +34,7 @@ namespace NSE.Identidade.API.Controllers
         }
 
         [HttpPost("nova-conta")]
+        [AllowAnonymous]
         public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -60,6 +62,7 @@ namespace NSE.Identidade.API.Controllers
         }
 
         [HttpPost("autenticar")]
+        [AllowAnonymous]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);

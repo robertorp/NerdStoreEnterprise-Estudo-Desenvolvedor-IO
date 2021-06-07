@@ -6,7 +6,7 @@ using NSE.Core.Data;
 
 namespace NSE.Cliente.API.Models
 {
-    public class ClienteRepository :IClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
         private readonly ClientesContext _context;
 
@@ -34,7 +34,7 @@ namespace NSE.Cliente.API.Models
 
         public void Dispose()
         {
-            _context.Dispose();
+            _context?.Dispose();
         }
     }
 }

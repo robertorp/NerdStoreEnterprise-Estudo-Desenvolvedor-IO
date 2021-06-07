@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Cliente.API.Application.Commands;
 using NSE.Core.Mediator;
@@ -17,9 +18,10 @@ namespace NSE.Cliente.API.Controllers
         }
 
         [HttpGet("clientes")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var resultado = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(),"Tho", "tho@tho.com", "58754449081"));
+            var resultado = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(),"Maria", "maria@yahoo.com.br", "22916832092"));
 
             return CustomResponse(resultado);
         }
