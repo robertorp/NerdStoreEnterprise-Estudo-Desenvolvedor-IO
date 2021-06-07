@@ -1,11 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using NSE.Core.Messages;
 
 namespace NSE.Core.DomainObjects
 {
     public abstract class Entity : IComparable<Entity>
     {
         public Guid Id { get; set; }
+
+        private List<Event> _notificacoes;
+        public IReadOnlyCollection<Event> Notificacoes => _notificacoes?.AsReadOnly();
+
+        public void AdicionarEvento(Event evento)
+        {
+            _notificacoes ??= new List<Event>();
+            _notificacoes.Add(evento);
+        }
+
+        public void RemoverEvento(Event eventItem)
+        {
+            _notificacoes?.Remove(eventItem);
+        }
+
+        public void LimparEventos()
+        {
+            _notificacoes?.Clear();
+        }
+
+        #region Comparações
 
         protected bool Equals(Entity other)
         {
@@ -22,7 +44,7 @@ namespace NSE.Core.DomainObjects
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Entity) obj);
+            return Equals((Entity)obj);
         }
 
         public override int GetHashCode()
@@ -82,5 +104,7 @@ namespace NSE.Core.DomainObjects
         {
             return !(a == b);
         }
+
+        #endregion
     }
 }
