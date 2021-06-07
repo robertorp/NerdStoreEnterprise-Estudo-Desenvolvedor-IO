@@ -20,4 +20,8 @@
     <Folder Include="wwwroot\fonts\fontawesome\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj" />
+  </ItemGroup>
+
 </Project>
