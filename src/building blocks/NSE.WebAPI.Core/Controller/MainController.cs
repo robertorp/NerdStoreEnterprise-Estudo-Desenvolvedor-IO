@@ -3,10 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace NSE.Identidade.API.Controllers
+namespace NSE.WebAPI.Core.Controller
 {
     [ApiController]
-    public abstract class MainController : Controller
+    public abstract class MainController : Microsoft.AspNetCore.Mvc.Controller
     {
         protected ICollection<string> Erros = new List<string>();
 
