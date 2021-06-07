@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NSE.WebApp.MVC.Models;
-using System.Diagnostics;
 
 namespace NSE.WebApp.MVC.Controllers
 {
@@ -15,6 +13,19 @@ namespace NSE.WebApp.MVC.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [Route("sistema-indisponivel")]
+        public IActionResult SistemaIndisponivel()
+        {
+            var modelErro = new ErrorViewModel
+            {
+                Mensagem = "O sistema está temporariamente indisponível, isto pode ocorrer em momentos de sobrecarga de usuários.",
+                Titulo = "Sistema indisponível",
+                ErroCode = 500
+            };
+
+            return View("Error", modelErro);
         }
 
         [Route("erro/{id:length(3,3)}")]
