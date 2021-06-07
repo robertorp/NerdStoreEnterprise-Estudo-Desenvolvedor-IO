@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace NSE.WebAPI.Core.Controller
 {
+    [Authorize]
     [ApiController]
     public abstract class MainController : Microsoft.AspNetCore.Mvc.Controller
     {
