@@ -24,7 +24,6 @@
     <Folder Include="Application\" />
     <Folder Include="Configuration\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>
