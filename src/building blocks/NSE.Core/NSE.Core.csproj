@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Mediator\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.2.3" />
+    <PackageReference Include="Mediatr" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
