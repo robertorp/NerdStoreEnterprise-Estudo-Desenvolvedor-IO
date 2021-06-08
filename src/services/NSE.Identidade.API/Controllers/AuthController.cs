@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using EasyNetQ;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace NSE.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        
+        private IBus _bus;
 
         public AuthController(SignInManager<IdentityUser> signInManager, 
                               UserManager<IdentityUser> userManager, 
@@ -54,6 +55,7 @@ namespace NSE.Identidade.API.Controllers
             if (result.Succeeded)
             {
 
+                var sucesso = await RegistrarCliente(usuarioRegistro);
 
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
             }
@@ -73,8 +75,11 @@ namespace NSE.Identidade.API.Controllers
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
                 Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
 
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
 
+            var sucesso = await _bus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
 
+            return sucesso;
         }
 
         [HttpPost("autenticar")]
