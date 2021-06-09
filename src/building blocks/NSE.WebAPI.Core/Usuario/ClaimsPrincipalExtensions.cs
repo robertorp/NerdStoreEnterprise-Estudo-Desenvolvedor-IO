@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 
-namespace NSE.WebApp.MVC.Extensions
+namespace NSE.WebAPI.Core.Usuario
 {
     public static class ClaimsPrincipalExtensions
     {
@@ -12,7 +12,7 @@ namespace NSE.WebApp.MVC.Extensions
                 throw new ArgumentException(nameof(principal));
             }
 
-            var claim = principal.FindFirst("sub");
+            var claim = principal.FindFirst(ClaimTypes.NameIdentifier);
             return claim?.Value;
         }
 
