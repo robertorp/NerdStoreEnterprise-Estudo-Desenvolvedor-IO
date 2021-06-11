@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Bff.Compras.Models;
@@ -55,15 +56,32 @@ namespace NSE.Bff.Compras.Controllers
 
         [HttpPut]
         [Route("compras/carrinho/items/{produtoId}")]
-        public async Task<IActionResult> AtualizarItemCarrinho()
+        public async Task<IActionResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoDTO itemProduto)
         {
-            return CustomResponse();
+            var produto = await _catalogoService.ObterPorId(produtoId);
+
+            await ValidarItemCarrinho(produto, itemProduto.Quantidade);
+            if (!OperacaoValida()) return CustomResponse();
+
+            var resposta = await _carrinhoService.AtualizarItemCarrinho(produtoId, itemProduto);
+
+            return CustomResponse(resposta);
         }
 
         [HttpDelete]
         [Route("compras/carrinho/items/{produtoId}")]
-        public async Task<IActionResult> RemoverItemCarrinho()
+        public async Task<IActionResult> RemoverItemCarrinho(Guid produtoId)
         {
+            var produto = await _catalogoService.ObterPorId(produtoId);
+
+            if (produto == null)
+            {
+                AdicionarErroProcessamento("Produto inexistente!");
+                return CustomResponse();
+            }
+
+            var reposta = await _carrinhoService.RemoverItemCarrinho(produtoId);
+
             return CustomResponse();
         }
 
