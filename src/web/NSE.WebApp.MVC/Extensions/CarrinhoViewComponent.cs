@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NSE.WebApp.MVC.Models;
 using NSE.WebApp.MVC.Services;
 
 namespace NSE.WebApp.MVC.Extensions
@@ -16,7 +15,7 @@ namespace NSE.WebApp.MVC.Extensions
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View(await _comprasBffService.ObterCarrinho() ?? new CarrinhoViewModel());
+            return View(await _comprasBffService.ObterQuantidadeCarrinho());
         }
     }
 }
