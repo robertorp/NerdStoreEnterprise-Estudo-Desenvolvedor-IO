@@ -1,11 +1,23 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NSE.Bff.Compras.Services;
 using NSE.WebAPI.Core.Controller;
 
 namespace NSE.Bff.Compras.Controllers
 {
     public class CarrinhoController : MainController
     {
+        private readonly ICarrinhoService _carrinhoService;
+        private readonly ICatalogoService _catalogoService;
+
+        public CarrinhoController(
+            ICarrinhoService carrinhoService, 
+            ICatalogoService catalogoService)
+        {
+            _carrinhoService = carrinhoService;
+            _catalogoService = catalogoService;
+        }
+
         [HttpGet]
         [Route("compras/carrinho")]
         public async Task<IActionResult> Index()
