@@ -8,14 +8,14 @@ using NSE.WebApp.MVC.Models;
 
 namespace NSE.WebApp.MVC.Services
 {
-    public class CarrinhoService : Service, ICarrinhoService
+    public class ComprasBffService : Service, IComprasBffService
     {
         private readonly HttpClient _httpClient;
 
-        public CarrinhoService(HttpClient httpClient, IOptions<AppSettings> settings)
+        public ComprasBffService(HttpClient httpClient, IOptions<AppSettings> settings)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(settings.Value.CarrinhoUrl);
+            _httpClient.BaseAddress = new Uri(settings.Value.ComprasBffUrl);
         }
 
         public async Task<CarrinhoViewModel> ObterCarrinho()
@@ -27,9 +27,9 @@ namespace NSE.WebApp.MVC.Services
             return await DeserializarObjetoResponse<CarrinhoViewModel>(response);
         }
 
-        public async Task<ResponseResult> AdicionarItemCarrinho(ItemProdutoViewModel produto)
+        public async Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel carrinho)
         {
-            var itemContent = ObterConteudo(produto);
+            var itemContent = ObterConteudo(carrinho);
 
             var response = await _httpClient.PostAsync("/carrinho/", itemContent);
 
@@ -38,11 +38,11 @@ namespace NSE.WebApp.MVC.Services
             return RetornoOk();
         }
 
-        public async Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemProdutoViewModel produto)
+        public async Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel carrinho)
         {
-            var itemContent = ObterConteudo(produto);
+            var itemContent = ObterConteudo(carrinho);
 
-            var response = await _httpClient.PutAsync($"/carrinho/{produto.ProdutoId}", itemContent);
+            var response = await _httpClient.PutAsync($"/carrinho/{carrinho.ProdutoId}", itemContent);
 
             if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
 
