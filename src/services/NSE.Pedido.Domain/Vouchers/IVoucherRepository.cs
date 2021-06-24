@@ -1,6 +1,6 @@
 ﻿using NSE.Core.Data;
 
-namespace NSE.Pedido.Domain.Vouchers
+namespace NSE.Pedidos.Domain.Vouchers
 {
     public interface IVoucherRepository : IRepository<Voucher>
     {

@@ -25,8 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\NSE.WebAPI.Core\NSE.WebAPI.Core.csproj" />
-    <ProjectReference Include="..\NSE.Pedido.Domain\NSE.Pedido.Domain.csproj" />
-    <ProjectReference Include="..\NSE.Pedido.Infra\NSE.Pedido.Infra.csproj" />
+    <ProjectReference Include="..\NSE.Pedido.Domain\NSE.Pedidos.Domain.csproj" />
+    <ProjectReference Include="..\NSE.Pedido.Infra\NSE.Pedidos.Infra.csproj" />
   </ItemGroup>
 
 </Project>

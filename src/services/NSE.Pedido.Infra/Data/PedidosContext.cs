@@ -7,7 +7,7 @@ using NSE.Core.Data;
 using NSE.Core.Mediator;
 using NSE.Core.Messages;
 
-namespace NSE.Pedido.Infra.Data
+namespace NSE.Pedidos.Infra.Data
 {
     public class PedidosContext : DbContext, IUnitOfWork
     {

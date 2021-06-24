@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using NSE.Pedido.API.Extensions;
-using NSE.Pedido.Domain.Vouchers;
-using NSE.Pedido.Infra;
-using NSE.Pedido.Infra.Data;
-using NSE.Pedido.Infra.Data.Repository;
+using NSE.Pedidos.API.Extensions;
+using NSE.Pedidos.Domain.Vouchers;
+using NSE.Pedidos.Infra.Data;
+using NSE.Pedidos.Infra.Data.Repository;
 using NSE.WebAPI.Core.Usuario;
 
-namespace NSE.Pedido.API.Configuration
+namespace NSE.Pedidos.API.Configuration
 {
     public static class DependencyInjectionConfig
     {

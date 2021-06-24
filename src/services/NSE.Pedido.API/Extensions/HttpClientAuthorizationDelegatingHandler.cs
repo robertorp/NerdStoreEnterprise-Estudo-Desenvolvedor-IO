@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NSE.WebAPI.Core.Usuario;
 
-namespace NSE.Pedido.API.Extensions
+namespace NSE.Pedidos.API.Extensions
 {
     public class HttpClientAuthorizationDelegatingHandler : DelegatingHandler
     {

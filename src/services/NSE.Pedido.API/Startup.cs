@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSE.Pedido.API.Configuration;
+using NSE.Pedidos.API.Configuration;
 using NSE.WebAPI.Core.Identidade;
 
-namespace NSE.Pedido.API
+namespace NSE.Pedidos.API
 {
     public class Startup
     {
