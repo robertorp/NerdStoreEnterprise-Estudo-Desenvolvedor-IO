@@ -3,7 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NSE.Pedido.API.Extensions;
 using NSE.Pedido.Domain.Vouchers;
 using NSE.Pedido.Infra;
-using NSE.Pedido.Infra.Repository;
+using NSE.Pedido.Infra.Data;
+using NSE.Pedido.Infra.Data.Repository;
 using NSE.WebAPI.Core.Usuario;
 
 namespace NSE.Pedido.API.Configuration

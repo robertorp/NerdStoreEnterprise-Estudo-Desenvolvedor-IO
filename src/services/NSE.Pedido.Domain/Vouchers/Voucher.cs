@@ -1,6 +1,8 @@
-﻿namespace NSE.Pedido.Domain.Vouchers
+﻿using NSE.Core.DomainObjects;
+
+namespace NSE.Pedido.Domain.Vouchers
 {
-    public class Voucher
+    public class Voucher : Entity, IAggregateRoot
     {
         
     }
