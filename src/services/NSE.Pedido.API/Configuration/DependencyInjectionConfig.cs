@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NSE.Pedido.API.Extensions;
+using NSE.Pedido.Domain.Vouchers;
+using NSE.Pedido.Infra;
+using NSE.Pedido.Infra.Repository;
 using NSE.WebAPI.Core.Usuario;
 
 namespace NSE.Pedido.API.Configuration
@@ -13,6 +16,9 @@ namespace NSE.Pedido.API.Configuration
             services.AddScoped<IAspNetUser, AspNetUser>();
 
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
+
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<PedidosContext>();
         }
     }
 }
