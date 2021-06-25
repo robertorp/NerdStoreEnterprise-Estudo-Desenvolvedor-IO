@@ -24,6 +24,8 @@ namespace NSE.Pedidos.API.Application.Queries
 
             if (voucher == null) return null;
 
+            if (!voucher.EstaValidadoParaUtilizado()) return null;
+
             return new VoucherDTO
             {
                 Codigo = voucher.Codigo,

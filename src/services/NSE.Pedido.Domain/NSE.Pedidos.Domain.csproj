@@ -6,6 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Pedidos\" />
+    <Folder Include="Vouchers\Specs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetDevPack" Version="5.0.3" />
   </ItemGroup>
 
   <ItemGroup>
