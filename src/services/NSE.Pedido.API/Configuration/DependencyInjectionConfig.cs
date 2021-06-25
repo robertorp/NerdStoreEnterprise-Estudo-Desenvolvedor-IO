@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using NSE.Core.Mediator;
 using NSE.Pedidos.API.Extensions;
 using NSE.Pedidos.Domain.Vouchers;
 using NSE.Pedidos.Infra.Data;
@@ -16,6 +17,8 @@ namespace NSE.Pedidos.API.Configuration
             services.AddScoped<IAspNetUser, AspNetUser>();
 
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
+
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
 
             services.AddScoped<IVoucherRepository, VoucherRepository>();
             services.AddScoped<PedidosContext>();

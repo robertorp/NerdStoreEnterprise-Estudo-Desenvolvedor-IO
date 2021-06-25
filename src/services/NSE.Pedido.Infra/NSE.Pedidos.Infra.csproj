@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Mappings\" />
     <Folder Include="Data\Repository\" />
   </ItemGroup>
 
