@@ -11,7 +11,7 @@ namespace NSE.Pedidos.API.Application.Queries
 
     public class VoucherQueries : IVoucherQueries
     {
-        private IVoucherRepository _voucherRepository;
+        private readonly IVoucherRepository _voucherRepository;
 
         public VoucherQueries(IVoucherRepository voucherRepository)
         {
