@@ -4,6 +4,7 @@ using NSE.WebAPI.Core.Controller;
 
 namespace NSE.Pedidos.API.Controllers
 {
+    [Route("/vouchers")]
     public class VoucherController : MainController
     {
         [HttpGet]
