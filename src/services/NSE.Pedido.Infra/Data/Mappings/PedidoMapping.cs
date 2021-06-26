@@ -35,7 +35,7 @@ namespace NSE.Pedidos.Infra.Data.Mappings
             });
 
             builder.Property(c => c.Codigo)
-                .HasDefaultValueSql("NEXT VALUE FOR MinhaSequencia");
+                .HasDefaultValueSql("nextval('minha_sequencia')");
 
             // 1 : N => Pedido : PedidoItems
             builder.HasMany(c => c.PedidoItems)
