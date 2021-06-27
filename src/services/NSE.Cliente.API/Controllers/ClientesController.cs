@@ -1,29 +1,39 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NSE.Cliente.API.Models;
 using NSE.Cliente.API.Application.Commands;
 using NSE.Core.Mediator;
 using NSE.WebAPI.Core.Controller;
+using NSE.WebAPI.Core.Usuario;
 
-namespace NSE.Cliente.API.Controllers
+namespace NSE.Clientes.API.Controllers
 {
     public class ClientesController : MainController
     {
-        private readonly IMediatorHandler _mediatorHandler;
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IMediatorHandler _mediator;
+        private readonly IAspNetUser _user;
 
-        public ClientesController(IMediatorHandler mediatorHandler)
+        public ClientesController(IClienteRepository clienteRepository, IMediatorHandler mediator, IAspNetUser user)
         {
-            _mediatorHandler = mediatorHandler;
+            _clienteRepository = clienteRepository;
+            _mediator = mediator;
+            _user = user;
         }
 
-        [HttpGet("clientes")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        [HttpGet("cliente/endereco")]
+        public async Task<IActionResult> ObterEndereco()
         {
-            var resultado = await _mediatorHandler.EnviarComando(new RegistrarClienteCommand(Guid.NewGuid(),"Maria", "maria@yahoo.com.br", "22916832092"));
+            var endereco = await _clienteRepository.ObterEnderecoPorId(_user.ObterUserId());
 
-            return CustomResponse(resultado);
+            return endereco == null ? NotFound() : CustomResponse(endereco);
+        }
+
+        [HttpPost("cliente/endereco")]
+        public async Task<IActionResult> AdicionarEndereco(AdicionarEnderecoCommand endereco)
+        {
+            endereco.ClienteId = _user.ObterUserId();
+            return CustomResponse(await _mediator.EnviarComando(endereco));
         }
     }
 }
