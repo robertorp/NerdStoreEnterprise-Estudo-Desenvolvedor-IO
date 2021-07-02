@@ -37,8 +37,15 @@ namespace NSE.Pedidos.API.Application.Queries
                                 AND P.PEDIDOSTATUS = 1 
                                 ORDER BY P.DATACADASTRO DESC";
 
+            const string sqlPgSql = "SELECT P.\"Id\" AS \"ProdutoId\", P.\"Codigo\" , P.\"VoucherUtilizado\" , P.\"Desconto\" , P.\"ValorTotal\" " +
+                                    ",P.\"PedidoStatus\" ,P.\"Logradouro\" ,P.\"Numero\" , P.\"Bairro\" , P.\"Cep\" , P.\"Complemento\" " +
+                                    ", P.\"Cidade\" , P.\"Estado\" ,PIT.\"Id\" AS \"ProdutoItemId\",PIT.\"ProdutoNome\" , PIT.\"Quantidade\" " +
+                                    ", PIT.\"ProdutoImagem\" , PIT.\"ValorUnitario\" FROM \"Pedidos\" as P INNER JOIN \"PedidoItems\" PIT ON " +
+                                    "P.\"Id\" = PIT.\"PedidoId\" WHERE P.\"ClienteId\" = @clienteId " +
+                                    "AND P.\"PedidoStatus\" = 1 ORDER BY P.\"DataCadastro\" desc limit 1";
+
             var pedido = await _pedidoRepository.ObterConexao()
-                .QueryAsync<dynamic>(sql, new { clienteId });
+                .QueryAsync<dynamic>(sqlPgSql, new { clienteId });
 
             return MapearPedido(pedido);
         }
