@@ -61,22 +61,22 @@ namespace NSE.Pedidos.API.Application.Queries
         {
             var pedido = new PedidoDTO
             {
-                Codigo = result[0].CODIGO,
-                Status = result[0].PEDIDOSTATUS,
-                ValorTotal = result[0].VALORTOTAL,
-                Desconto = result[0].DESCONTO,
-                VoucherUtilizado = result[0].VOUCHERUTILIZADO,
+                Codigo = result[0].Codigo,
+                Status = result[0].PedidoStatus,
+                ValorTotal = result[0].ValorTotal,
+                Desconto = result[0].Desconto,
+                VoucherUtilizado = result[0].VoucherUtilizado,
 
                 PedidoItems = new List<PedidoItemDTO>(),
                 Endereco = new EnderecoDTO
                 {
-                    Logradouro = result[0].LOGRADOURO,
-                    Bairro = result[0].BAIRRO,
-                    Cep = result[0].CEP,
-                    Cidade = result[0].CIDADE,
-                    Complemento = result[0].COMPLEMENTO,
-                    Estado = result[0].ESTADO,
-                    Numero = result[0].NUMERO
+                    Logradouro = result[0].Logradouro,
+                    Bairro = result[0].Bairro,
+                    Cep = result[0].Cep,
+                    Cidade = result[0].Cidade,
+                    Complemento = result[0].Complemento,
+                    Estado = result[0].Estado,
+                    Numero = result[0].Numero
                 }
             };
 
@@ -84,10 +84,10 @@ namespace NSE.Pedidos.API.Application.Queries
             {
                 var pedidoItem = new PedidoItemDTO
                 {
-                    Nome = item.PRODUTONOME,
-                    Valor = item.VALORUNITARIO,
-                    Quantidade = item.QUANTIDADE,
-                    Imagem = item.PRODUTOIMAGEM
+                    Nome = item.ProdutoNome,
+                    Valor = item.ValorUnitario,
+                    Quantidade = item.Quantidade,
+                    Imagem = item.ProdutoImagem
                 };
 
                 pedido.PedidoItems.Add(pedidoItem);
