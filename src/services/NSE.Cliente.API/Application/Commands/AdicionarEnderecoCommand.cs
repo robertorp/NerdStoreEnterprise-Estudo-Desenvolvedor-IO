@@ -6,7 +6,18 @@ namespace NSE.Cliente.API.Application.Commands
 {
     public class AdicionarEnderecoCommand : Command
     {
-        public Guid ClienteId { get; set; }
+        private Guid _clienteId;
+
+        public Guid ClienteId
+        {
+            get => _clienteId;
+            set
+            {
+                _clienteId = value;
+                AggregateId = value;
+            }
+        }
+
         public string Logradouro { get; set; }
         public string Numero { get; set; }
         public string Complemento { get; set; }
@@ -15,7 +26,7 @@ namespace NSE.Cliente.API.Application.Commands
         public string Cidade { get; set; }
         public string Estado { get; set; }
 
-        public AdicionarEnderecoCommand()
+        private AdicionarEnderecoCommand()
         {
         }
 
