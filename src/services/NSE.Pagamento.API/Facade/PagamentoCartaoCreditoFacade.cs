@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using NSE.Pagamento.API.Models;
 using NSE.Pagamentos.NerdsPag;
@@ -40,6 +42,24 @@ namespace NSE.Pagamento.API.Facade
                 CardCvv = pagamento.CartaoCredito.CVV,
                 PaymentMethod = PaymentMethod.CreditCard,
                 Amount = pagamento.Valor
+            };
+
+            return ParaTransacao(await transacao.AuthorizeCardTransaction());
+        }
+
+        public Transacao ParaTransacao(Transaction transaction)
+        {
+            return new Transacao
+            {
+                Id = Guid.NewGuid(),
+                Status = (StatusTransacao)transaction.Status,
+                ValorTotal = transaction.Amount,
+                BandeiraCartao = transaction.CardBrand,
+                CodigoAutorizacao = transaction.AuthorizationCode,
+                CustoTransacao = transaction.Cost,
+                DataTransacao = transaction.TransactionDate,
+                NSU = transaction.Nsu,
+                TID = transaction.Tid
             };
         }
     }
