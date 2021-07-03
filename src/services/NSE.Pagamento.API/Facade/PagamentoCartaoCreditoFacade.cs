@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using NSE.Pagamento.API.Models;
+using NSE.Pagamentos.NerdsPag;
 
 namespace NSE.Pagamento.API.Facade
 {
@@ -15,7 +16,31 @@ namespace NSE.Pagamento.API.Facade
 
         public async Task<Transacao> AutorizarPagamento(Models.Pagamento pagamento)
         {
-            throw new System.NotImplementedException();
+            var nerdsPagSvc =
+                new NerdsPagService(_pagamentoConfig.DefaultApiKey,
+                                    _pagamentoConfig.DefaultEncryptionKey);
+
+
+            var cardHashGen = new CardHash(nerdsPagSvc)
+            {
+                CardNumber = pagamento.CartaoCredito.NumeroCartao,
+                CardHolderName = pagamento.CartaoCredito.NomeCartao,
+                CardExpirationDate = pagamento.CartaoCredito.MesAnoVencimento,
+                CardCvv = pagamento.CartaoCredito.CVV
+            };
+
+            var cardHash = cardHashGen.Generate();
+
+            var transacao = new Transaction(nerdsPagSvc)
+            {
+                CardHash = cardHash,
+                CardNumber = pagamento.CartaoCredito.NumeroCartao,
+                CardHolderName = pagamento.CartaoCredito.NomeCartao,
+                CardExpirationDate = pagamento.CartaoCredito.MesAnoVencimento,
+                CardCvv = pagamento.CartaoCredito.CVV,
+                PaymentMethod = PaymentMethod.CreditCard,
+                Amount = pagamento.Valor
+            };
         }
     }
 }
