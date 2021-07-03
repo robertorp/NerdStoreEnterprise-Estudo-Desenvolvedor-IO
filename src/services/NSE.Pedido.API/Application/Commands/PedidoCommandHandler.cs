@@ -46,7 +46,7 @@ namespace NSE.Pedidos.API.Application.Commands
             if (!ValidarPedido(pedido)) return ValidationResult;
 
             // Processar pagamento
-            if (!ProcessarPagamento(pedido, message)) return ValidationResult;
+            if (!await ProcessarPagamento(pedido, message)) return ValidationResult;
 
             // Se pagamento tudo ok!
             pedido.AutorizarPedido();
@@ -143,9 +143,17 @@ namespace NSE.Pedidos.API.Application.Commands
                 CVV = message.CvvCartao
             };
 
-            var result = await _bus.RequestAsync<PedidoIniciadoIntegrationEvent, ResponseMessage>();
+            var result = await _bus.RequestAsync<PedidoIniciadoIntegrationEvent, ResponseMessage>(pedidoIniciado);
 
-            return true;
+
+            if (result.ValidationResult.IsValid) return true;
+
+            foreach (var erro in result.ValidationResult.Errors)
+            {
+                AdicionarErro(erro.ErrorMessage);
+            }
+
+            return false;
         }
     }
 }
