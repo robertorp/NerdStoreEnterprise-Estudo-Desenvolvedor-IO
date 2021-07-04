@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NSE.Core.Messages.Integration;
 using NSE.MessageBus;
+using NSE.Pagamento.API.Models;
 
 namespace NSE.Pagamento.API.Services
 {
@@ -19,9 +21,43 @@ namespace NSE.Pagamento.API.Services
             _serviceProvider = serviceProvider;
         }
 
+        private void SetResponder()
+        {
+            _bus.RespondAsync<PedidoIniciadoIntegrationEvent, ResponseMessage>(async request =>
+                await AutorizarPagamento(request));
+        }
+
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new System.NotImplementedException();
+            SetResponder();
+            return Task.CompletedTask;
+        }
+
+        private async Task<ResponseMessage> AutorizarPagamento(PedidoIniciadoIntegrationEvent message)
+        {
+            ResponseMessage response;
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var pagamentoService = scope.ServiceProvider.GetRequiredService<IPagamentoService>();
+
+                var pagamento = new Models.Pagamento
+                {
+                    PedidoId = message.PedidoId,
+                    TipoPagamento = (TipoPagamento) message.TipoPagamento,
+                    Valor = message.Valor,
+                    CartaoCredito = new CartaoCredito(
+                        message.NomeCartao, 
+                        message.NumeroCartao, 
+                        message.MesAnoVencimento, 
+                        message.CVV)
+                };
+
+
+                response = await pagamentoService.AutorizarPagamento(pagamento);
+            }
+
+            return response;
         }
     }
 }
