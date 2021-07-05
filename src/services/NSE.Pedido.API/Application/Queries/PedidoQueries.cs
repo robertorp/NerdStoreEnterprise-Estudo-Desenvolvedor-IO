@@ -13,6 +13,7 @@ namespace NSE.Pedidos.API.Application.Queries
         Task<PedidoDTO> ObterUltimoPedido(Guid clienteId);
 
         Task<IEnumerable<PedidoDTO>> ObterListaPorClienteId(Guid clienteId);
+        Task<PedidoDTO> ObterPedidosAutorizados();
     }
 
     public class PedidoQueries : IPedidoQueries
@@ -55,6 +56,25 @@ namespace NSE.Pedidos.API.Application.Queries
             var pedidos = await _pedidoRepository.ObterListaPorClienteId(clienteId);
 
             return pedidos.Select(PedidoDTO.ParaPedidoDTO);
+        }
+
+        public async Task<PedidoDTO> ObterPedidosAutorizados()
+        {
+            const string sql = "SELECT P.\"Id\" as \"PedidoId\", P.\"Id\", P.\"ClienteId\", " +
+                               "PI.\"Id\" as \"PedidoItemId\", PI.\"Id\", PI.\"ProdutoId\", " +
+                               "PI.\"Quantidade\" FROM \"Pedidos\" P INNER JOIN \"PedidoItems\" as PI ON P.\"Id\" = PI.\"PedidoId\" " +
+                               "WHERE P.\"PedidoStatus\" = 1 ORDER BY P.\"DataCadastro\"";
+
+            var pedido = await _pedidoRepository.ObterConexao().QueryAsync<PedidoDTO, PedidoItemDTO, PedidoDTO>(sql,
+                (p, pi) =>
+                {
+                    p.PedidoItems = new List<PedidoItemDTO>();
+                    p.PedidoItems.Add(pi);
+
+                    return p;
+                }, splitOn: "PedidoId, PedidoItemId");
+
+            return pedido.FirstOrDefault();
         }
 
         private PedidoDTO MapearPedido(dynamic result)
