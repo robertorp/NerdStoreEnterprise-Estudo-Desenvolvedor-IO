@@ -46,7 +46,7 @@ namespace NSE.Pedidos.API.Services
                 var bus = scope.ServiceProvider.GetRequiredService<IMessageBus>();
 
                 var pedidoAutorizado = new PedidoAutorizadoIntegrationEvent(pedido.ClienteId, pedido.Id,
-                    pedido.PedidoItems.ToDictionary(p => p.PedidoId, p => p.Quantidade));
+                    pedido.PedidoItems.ToDictionary(p => p.ProdutoId, p => p.Quantidade));
 
                 await bus.PublishAsync(pedidoAutorizado);
 
