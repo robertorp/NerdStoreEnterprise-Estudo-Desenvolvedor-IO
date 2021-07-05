@@ -19,9 +19,15 @@ namespace NSE.Catalogo.API.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Produto>> ObterTodos()
+        public async Task<IEnumerable<Produto>> ObterTodos(int pageSize, int pageIndex, string query = null)
         {
-            return await _context.Produtos.AsNoTracking().ToListAsync();
+            var queryable = _context.Produtos.AsNoTracking()
+                .Skip(pageSize * (pageIndex - 1)).Take(3);
+            
+            if (!string.IsNullOrWhiteSpace(query))
+                queryable = queryable.Where(produto => EF.Functions.ILike(produto.Nome, $"%{query}%"));
+
+            return await queryable.ToListAsync();
         }
 
         public async Task<Produto> ObterPorId(Guid id)
