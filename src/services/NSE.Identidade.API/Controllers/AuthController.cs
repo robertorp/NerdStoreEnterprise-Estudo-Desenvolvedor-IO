@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +25,6 @@ namespace NSE.Identidade.API.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly AppSettings _appSettings;
         private readonly IAspNetUser _aspNetUser;
         private readonly IJsonWebKeySetService _jwksService;
 
@@ -41,7 +39,6 @@ namespace NSE.Identidade.API.Controllers
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _appSettings = appSettings.Value;
             _bus = bus;
             _aspNetUser = aspNetUser;
             _jwksService = jwksService;
