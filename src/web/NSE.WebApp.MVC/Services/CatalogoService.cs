@@ -13,20 +13,11 @@ namespace NSE.WebApp.MVC.Services
         private readonly HttpClient _httpClient;
 
         public CatalogoService(HttpClient httpClient,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> settings)
         {
-            httpClient.BaseAddress = new Uri(appSettings.Value.CatalogoUrl);
+            httpClient.BaseAddress = new Uri(settings.Value.CatalogoUrl);
 
             _httpClient = httpClient;
-        }
-
-        public async Task<PagedViewModel<ProdutoViewModel>> ObterTodos(int pageSize, int pageIndex, string query = null)
-        {
-            var response = await _httpClient.GetAsync($"/catalogo/produtos?ps={pageSize}&page={pageIndex}&q={query}");
-
-            TratarErrosResponse(response);
-
-            return await DeserializarObjetoResponse<PagedViewModel<ProdutoViewModel>>(response);
         }
 
         public async Task<ProdutoViewModel> ObterPorId(Guid id)
@@ -36,6 +27,15 @@ namespace NSE.WebApp.MVC.Services
             TratarErrosResponse(response);
 
             return await DeserializarObjetoResponse<ProdutoViewModel>(response);
+        }
+
+        public async Task<PagedViewModel<ProdutoViewModel>> ObterTodos(int pageSize, int pageIndex, string query = null)
+        {
+            var response = await _httpClient.GetAsync($"/catalogo/produtos?ps={pageSize}&page={pageIndex}&q={query}");
+
+            TratarErrosResponse(response);
+
+            return await DeserializarObjetoResponse<PagedViewModel<ProdutoViewModel>>(response);
         }
     }
 }

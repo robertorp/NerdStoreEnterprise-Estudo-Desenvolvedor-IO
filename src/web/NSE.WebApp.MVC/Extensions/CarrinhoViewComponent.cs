@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NSE.WebApp.MVC.Models;
 using NSE.WebApp.MVC.Services;
 
 namespace NSE.WebApp.MVC.Extensions
