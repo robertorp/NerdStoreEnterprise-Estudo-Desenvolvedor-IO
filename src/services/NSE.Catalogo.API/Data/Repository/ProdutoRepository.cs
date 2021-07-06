@@ -23,9 +23,18 @@ namespace NSE.Catalogo.API.Data.Repository
         {
             var queryable = _context.Produtos.AsNoTracking()
                 .Skip(pageSize * (pageIndex - 1)).Take(3);
-            
+
+            var totalRegistros = _context.Produtos.AsQueryable();
+
             if (!string.IsNullOrWhiteSpace(query))
+            {
                 queryable = queryable.Where(produto => EF.Functions.ILike(produto.Nome, $"%{query}%"));
+                totalRegistros = totalRegistros.Where(produto => EF.Functions.ILike(produto.Nome, $"%{query}%"));
+            }
+            queryable = queryable.OrderBy(produto => produto.Nome);
+
+
+            var total = await totalRegistros.CountAsync();
 
             return await queryable.ToListAsync();
         }
