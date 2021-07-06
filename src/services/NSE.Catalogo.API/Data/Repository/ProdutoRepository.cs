@@ -32,7 +32,7 @@ namespace NSE.Catalogo.API.Data.Repository
                 totalRegistros = totalRegistros.Where(produto => EF.Functions.ILike(produto.Nome, $"%{query}%"));
             }
             queryable = queryable.OrderBy(produto => produto.Nome);
-
+             
 
             var total = await totalRegistros.CountAsync();
             var produtos = await queryable.ToListAsync();
