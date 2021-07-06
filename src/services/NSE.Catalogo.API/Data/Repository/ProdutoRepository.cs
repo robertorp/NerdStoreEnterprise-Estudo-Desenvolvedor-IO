@@ -19,10 +19,10 @@ namespace NSE.Catalogo.API.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public async Task<IEnumerable<Produto>> ObterTodos(int pageSize, int pageIndex, string query = null)
+        public async Task<PageResult<Produto>> ObterTodos(int pageSize, int pageIndex, string query = null)
         {
             var queryable = _context.Produtos.AsNoTracking()
-                .Skip(pageSize * (pageIndex - 1)).Take(3);
+                .Skip(pageSize * (pageIndex - 1)).Take(pageSize);
 
             var totalRegistros = _context.Produtos.AsQueryable();
 
@@ -35,8 +35,18 @@ namespace NSE.Catalogo.API.Data.Repository
 
 
             var total = await totalRegistros.CountAsync();
+            var produtos = await queryable.ToListAsync();
 
-            return await queryable.ToListAsync();
+            var pageResult = new PageResult<Produto>
+            {
+                List = produtos,
+                TotalResults = total,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                Query = query
+            };
+
+            return pageResult;
         }
 
         public async Task<Produto> ObterPorId(Guid id)
