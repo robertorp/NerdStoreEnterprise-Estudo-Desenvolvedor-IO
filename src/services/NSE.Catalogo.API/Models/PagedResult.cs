@@ -2,7 +2,7 @@
 
 namespace NSE.Catalogo.API.Models
 {
-    public class PageResult<T> where T : class
+    public class PagedResult<T> where T : class
     {
         public IEnumerable<T> List { get; set; }
         public int TotalResults { get; set; }
