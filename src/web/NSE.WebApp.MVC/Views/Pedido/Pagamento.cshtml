@@ -61,17 +61,17 @@
                         </div>
                     </article>
 
-                    <partial name="_ResumoFinanceiro" model="Model" />
+                    <partial name="_ResumoFinanceiro" model="Model"/>
 
                     <form asp-action="FinalizarPedido" asp-controller="Pedido">
                         <article class="card-body border-top">
 
                             <div class="card-body">
-                                <div class="row">
+                                   <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label asp-for="NomeCartao"></label>
-                                            <input asp-for="NomeCartao" class="form-control" />
+                                            <input asp-for="NomeCartao" class="form-control"/>
                                             <span asp-validation-for="NomeCartao" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@
                                         <div class="form-group">
                                             <label asp-for="NumeroCartao"></label>
                                             <div class="input-group">
-                                                <input asp-for="NumeroCartao" class="form-control" />
+                                                <input asp-for="NumeroCartao" class="form-control"/>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">
                                                         <i class="fab fa-cc-visa"></i> &nbsp; <i class="fab fa-cc-amex"></i> &nbsp;
@@ -97,7 +97,7 @@
                                         <div>
                                             <label asp-for="ExpiracaoCartao"></label>
                                             <div class="form-inline">
-                                                <input style="width: 190px" asp-for="ExpiracaoCartao" class="form-control" />
+                                                <input style="width: 190px" asp-for="ExpiracaoCartao" class="form-control"/>
                                                 <span asp-validation-for="ExpiracaoCartao" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                                             </spam>
 
                                             <div>
-                                                <input style="width: 160px" asp-for="CvvCartao" class="form-control" />
+                                                <input style="width: 160px" asp-for="CvvCartao" class="form-control"/>
                                                 <span asp-validation-for="CvvCartao" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -135,7 +135,7 @@
 
 @section Scripts {
 
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }
