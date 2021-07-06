@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 using NSE.WebAPI.Core.Identidade;
 
 namespace NSE.Identidade.API.Coinfiguration
@@ -32,6 +33,8 @@ namespace NSE.Identidade.API.Coinfiguration
             {
                 endpoints.MapControllers();
             });
+
+            app.UseJwksDiscovery();
 
             return app;
         }
