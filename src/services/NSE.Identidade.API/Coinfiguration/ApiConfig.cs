@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetDevPack.Security.JwtSigningCredentials.AspNetCore;
 using NSE.WebAPI.Core.Identidade;
+using NSE.WebAPI.Core.Usuario;
 
 namespace NSE.Identidade.API.Coinfiguration
 {
@@ -12,6 +13,8 @@ namespace NSE.Identidade.API.Coinfiguration
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
         }
