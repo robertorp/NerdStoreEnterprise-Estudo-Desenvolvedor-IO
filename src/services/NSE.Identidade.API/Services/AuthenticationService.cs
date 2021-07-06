@@ -12,7 +12,6 @@ using NetDevPack.Security.JwtSigningCredentials.Interfaces;
 using NSE.Identidade.API.Data;
 using NSE.Identidade.API.Extensions;
 using NSE.Identidade.API.Models;
-using NSE.WebAPI.Core.Identidade;
 using NSE.WebAPI.Core.Usuario;
 
 namespace NSE.Identidade.API.Services
@@ -21,7 +20,6 @@ namespace NSE.Identidade.API.Services
     {
         public readonly SignInManager<IdentityUser> SignInManager;
         public readonly UserManager<IdentityUser> UserManager;
-        private readonly AppSettings _appSettings;
         private readonly AppTokenSettings _appTokenSettingsSettings;
         private readonly ApplicationDbContext _context;
 
@@ -31,7 +29,6 @@ namespace NSE.Identidade.API.Services
         public AuthenticationService(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            IOptions<AppSettings> appSettings,
             IOptions<AppTokenSettings> appTokenSettingsSettings,
             ApplicationDbContext context,
             IJsonWebKeySetService jwksService,
@@ -39,7 +36,6 @@ namespace NSE.Identidade.API.Services
         {
             SignInManager = signInManager;
             UserManager = userManager;
-            _appSettings = appSettings.Value;
             _appTokenSettingsSettings = appTokenSettingsSettings.Value;
             _jwksService = jwksService;
             _aspNetUser = aspNetUser;
