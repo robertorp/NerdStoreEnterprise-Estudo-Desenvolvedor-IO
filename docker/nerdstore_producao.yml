@@ -13,11 +13,15 @@ services:
       - "15672:15672"
 
   postgresql-nerdstore:
-    image: robertoalvespereira18/postgres-nerdstore-c
+    image: postgres
+    volumes:
+      - //c/Users/rober/volumes-docker/nerdstore:/var/lib/postgresql
     container_name: postgres-nerdstore-c
+    ports:
+      - "5433:5432"
     restart: always
     environment:
-      POSTGRES_PASSWORD: admin 
+      POSTGRES_PASSWORD: Admin! 
 
   web-mvc:
     image: robertoalves18/nerdstore-web-mvc-ecommerce:latest
@@ -45,4 +49,4 @@ services:
     restart: on-failure
     depends_on:
       - rabbitmq
-
+      - postgresql-nerdstore
