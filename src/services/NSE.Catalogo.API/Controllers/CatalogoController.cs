@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Catalogo.API.Models;
 using NSE.WebAPI.Core.Controller;
 
 namespace NSE.Catalogo.API.Controllers
 {
+    [AllowAnonymous]
     public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;

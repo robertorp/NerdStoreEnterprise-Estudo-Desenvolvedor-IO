@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Core.Messages.Integration;
@@ -11,6 +12,7 @@ using NSE.WebAPI.Core.Controller;
 namespace NSE.Identidade.API.Controllers
 {
     [Route("api/identidade")]
+    [AllowAnonymous]
     public class AuthController : MainController
     {
         private readonly AuthenticationService _authenticationService;
