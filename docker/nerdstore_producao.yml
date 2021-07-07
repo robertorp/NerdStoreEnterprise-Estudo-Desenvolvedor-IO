@@ -1,27 +1,26 @@
-version: "3"
+version: '3'
 
 services:
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbit-nerdstore
     environment:
-      RABBITMQ_DEFAULT_USER: "nerdstore"
-      RABBITMQ_DEFAULT_PASS: "nerdstore"
+      RABBITMQ_DEFAULT_USER: 'nerdstore'
+      RABBITMQ_DEFAULT_PASS: 'nerdstore'
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - '5672:5672'
+      - '15672:15672'
 
   postgresql-nerdstore:
     image: postgres
     volumes:
-      - //c/Users/rober/volumes-docker/nerdstore:/var/lib/postgresql
+      - //c/volumes-docker/nerdstore:/var/lib/postgresql
     container_name: postgres-nerdstore-c
     ports:
-      - "5433:5432"
+      - '5433:5432'
     restart: always
     environment:
-      POSTGRES_PASSWORD: Admin! 
+      POSTGRES_PASSWORD: Admin!
 
   web-mvc:
     image: robertoalves18/nerdstore-web-mvc-ecommerce:latest
@@ -30,12 +29,26 @@ services:
       context: ../src
       dockerfile: ./web/NSE.WebApp.MVC/Dockerfile
     ports:
-      - "5003:5003"
+      - '5003:5003'
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5003
     depends_on:
       - api-catalogo
+
+  api-identidade:
+    image: robertoalves18/nerdstore-api-identidade:latest
+    container_name: nerdstore-api-identidade
+    build:
+      context: ../src
+      dockerfile: ./services/NSE.Identidade.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:5001
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - postgresql-nerdstore
 
   api-catalogo:
     image: robertoalves18/nerdstore-api-catalogo:latest
