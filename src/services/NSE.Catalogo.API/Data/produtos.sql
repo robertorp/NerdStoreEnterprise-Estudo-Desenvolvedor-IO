@@ -1,0 +1,9 @@
+INSERT INTO public."Produtos" ("Id","Nome","Descricao","Ativo","Valor","DataCadastro","Imagem","QuantidadeEstoque") VALUES
+	 ('7d67df76-2d4e-4a47-a19c-08eb80a9060b'::uuid,'Camiseta Code Life Preta','Camiseta 100% algodão, resistente a lavagens e altas temperaturas.',true,90.00,'2019-07-19 00:00:00','camiseta2.jpg',100),
+	 ('78162be3-61c4-4959-89d7-5ebfb476427e'::uuid,'Caneca No Coffee No Code','Caneca de porcelana com impressão térmica de alta resistência.',true,50.00,'2019-07-19 00:00:00','caneca4.jpg',100),
+	 ('6ecaaa6b-ad9f-422c-b3bb-6013ec27b4bb'::uuid,'Camiseta Debugar Preta','Camiseta 100% algodão, resistente a lavagens e altas temperaturas.',true,75,'2019-07-19 00:00:00','camiseta4.jpg',150),
+	 ('52dd696b-0882-4a73-9525-6af55dd416a4'::uuid,'Caneca Star Bugs Coffee','Caneca de porcelana com impressão térmica de alta resistência.',true,20,'2019-07-19 00:00:00','caneca1.jpg',0),
+	 ('191ddd3e-acd4-4c3b-ae74-8e473993c5da'::uuid,'Caneca Programmer Code','Caneca de porcelana com impressão térmica de alta resistência.',true,15,'2019-07-19 00:00:00','caneca2.jpg',1),
+	 ('20e08cd4-2402-4e76-a3c9-a026185b193d'::uuid,'Caneca Turn Coffee in Code','Caneca de porcelana com impressão térmica de alta resistência.',true,20,'2019-07-19 00:00:00','caneca3.jpg',0),
+	 ('6ecaaa6b-ad9f-422c-b3bb-6013ec27c4bb'::uuid,'Camiseta Code Life Cinza','Camiseta 100% algodão, resistente a lavagens e altas temperaturas.',true,80,'2019-07-19 00:00:00','camiseta3.jpg',4),
+	 ('fc184e11-014c-4978-aa10-9eb5e1af369b'::uuid,'Camiseta Software Developer','Camiseta 100% algodão, resistente a lavagens e altas temperaturas.',true,100,'2019-07-19 00:00:00','camiseta1.jpg',8);
