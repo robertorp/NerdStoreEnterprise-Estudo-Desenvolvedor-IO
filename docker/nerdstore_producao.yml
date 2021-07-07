@@ -12,6 +12,13 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  postgresql-nerdstore:
+    image: robertoalvespereira18/postgres-nerdstore-c
+    container_name: postgres-nerdstore-c
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin 
+
   web-mvc:
     image: robertoalves18/nerdstore-web-mvc-ecommerce:latest
     container_name: nerdstore-web-mvc-ecommerce
