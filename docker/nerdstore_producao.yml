@@ -7,9 +7,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: 'nerdstore'
       RABBITMQ_DEFAULT_PASS: 'nerdstore'
-    ports:
-      - '5672:5672'
-      - '15672:15672'
 
   postgresql-nerdstore:
     image: robertoalves18/nerdstore-postgresql:latest
@@ -19,8 +16,6 @@ services:
     build:
       context: ../sql
       dockerfile: ./Dockerfile
-    ports:
-      - '5432:5432'
     restart: always
     environment:
       POSTGRES_PASSWORD: Admin!
