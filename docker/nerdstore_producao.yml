@@ -35,8 +35,6 @@ services:
       - ASPNETCORE_URLS=http://*:5003
     depends_on:
       - api-catalogo
-      - api-identidade
-      - api-carrinho
 
   api-identidade:
     image: robertoalves18/nerdstore-api-identidade:latest
@@ -53,7 +51,7 @@ services:
       - postgresql-nerdstore
 
   api-carrinho:
-    image: robertoalves18/nerdstore-api-carrinho
+    image: robertoalves18/nerdstore-api-carrinho:latest
     container_name: nerdstore-api-carrinho
     build:
       context: ../src
@@ -79,4 +77,19 @@ services:
     restart: on-failure
     depends_on:
       - rabbitmq
+      - postgresql-nerdstore
+
+  api-cliente:
+    image: robertoalves18/nerdstore-api-cliente:latest
+    container_name: nerdstore-api-cliente
+    build:
+      context: ../src
+      dockerfile: ./services/NSE.Cliente.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:5007
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - api-identidade
       - postgresql-nerdstore
