@@ -12,10 +12,13 @@ services:
       - '15672:15672'
 
   postgresql-nerdstore:
-    image: postgres
+    image: robertoalves18/nerdstore-postgresql:latest
     volumes:
       - /c/DockerProjecs/postgres/postgres_db:/var/lib/postgresql/data
     container_name: postgresql-nerdstore
+    build:
+      context: ../sql
+      dockerfile: ./Dockerfile
     ports:
       - '5432:5432'
     restart: always
