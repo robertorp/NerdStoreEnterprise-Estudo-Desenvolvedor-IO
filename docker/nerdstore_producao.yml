@@ -28,8 +28,6 @@ services:
     build:
       context: ../src
       dockerfile: ./web/NSE.WebApp.MVC/Dockerfile
-    ports:
-      - '5003:5003'
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5003
