@@ -109,6 +109,7 @@ services:
       - api-identidade
       - api-carrinho
       - api-pagamento
+      - api-pedido
 
   api-pagamento:
     image: robertoalves18/nerdstore-api-pagamento:latest
@@ -119,6 +120,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5015
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - api-identidade
+      - api-pedido
+      - postgresql-nerdstore
+
+  api-pedido:
+    image: robertoalves18/nerdstore-api-pedido:latest
+    container_name: nerdstore-api-pedido
+    build:
+      context: ../src
+      dockerfile: ./services/NSE.Pedidos.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:5013
     restart: on-failure
     depends_on:
       - rabbitmq
