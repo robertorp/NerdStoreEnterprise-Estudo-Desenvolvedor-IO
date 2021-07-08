@@ -14,10 +14,10 @@ services:
   postgresql-nerdstore:
     image: postgres
     volumes:
-      - //c/volumes-docker/nerdstore:/var/lib/postgresql
-    container_name: postgres-nerdstore-c
+      - /c/DockerProjecs/postgres/postgres_db:/var/lib/postgresql/data
+    container_name: postgresql-nerdstore
     ports:
-      - '5433:5432'
+      - '5432:5432'
     restart: always
     environment:
       POSTGRES_PASSWORD: Admin!
