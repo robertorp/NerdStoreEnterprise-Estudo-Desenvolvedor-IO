@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EasyNetQ;
 using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,7 +38,7 @@ namespace NSE.Cliente.API.Services
             return Task.CompletedTask;
         }
 
-        private void OnConnect(object? sender, ConnectedEventArgs e)
+        private void OnConnect(object s, EventArgs e)
         {
             SetResponder();
         }

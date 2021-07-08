@@ -15,7 +15,7 @@ namespace NSE.MessageBus
 
         Task PublishAsync<T>(T message) where T : IntegrationEvent;
 
-        void SubscribeAsync<T>(string subscriptionId, Action<T> onMessage) where T : class;
+        void Subscribe<T>(string subscriptionId, Action<T> onMessage) where T : class;
 
         void SubscribeAsync<T>(string subscriptionId, Func<T, Task> onMessage) where T : class;
 
@@ -31,7 +31,7 @@ namespace NSE.MessageBus
             where TRequest : IntegrationEvent
             where TResponse : ResponseMessage;
 
-        AwaitableDisposable<IDisposable> RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
+        IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
             where TRequest : IntegrationEvent
             where TResponse : ResponseMessage;
     }
