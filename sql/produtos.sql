@@ -1,4 +1,4 @@
-CREATE DATABASE NerdStoreEnterprise;
+CREATE DATABASE "NerdStoreEnterprise";
 
 CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
     "MigrationId" character varying(150) NOT NULL,
