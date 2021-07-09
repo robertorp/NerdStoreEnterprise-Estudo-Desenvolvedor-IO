@@ -26,6 +26,7 @@ services:
     build:
       context: ../src
       dockerfile: ./web/NSE.WebApp.MVC/Dockerfile
+    mem_limit: 1024m
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5003
@@ -41,9 +42,14 @@ services:
     build:
       context: ../src
       dockerfile: ./services/NSE.Identidade.API/Dockerfile
+    mem_limit: 256m
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5001
+      - ASPNETCORE_URLS=https://+:5001;http://+5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -57,7 +63,11 @@ services:
       dockerfile: ./services/NSE.Carrinho.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5009
+      - ASPNETCORE_URLS=https://+:5009;http://+5008
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -72,7 +82,11 @@ services:
       dockerfile: ./services/NSE.Catalogo.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5005
+      - ASPNETCORE_URLS=https://+:5005;http://+5004
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -86,7 +100,11 @@ services:
       dockerfile: ./services/NSE.Cliente.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5007
+      - ASPNETCORE_URLS=https://+:5007;http://+5006
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -101,7 +119,11 @@ services:
       dockerfile: ./api gateways/NSE.Bff.Compras/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5011
+      - ASPNETCORE_URLS=https://+:5011;http://+5010
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -118,7 +140,11 @@ services:
       dockerfile: ./services/NSE.Pagamento.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5015
+      - ASPNETCORE_URLS=https://+:5015;http://+5014
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -134,7 +160,11 @@ services:
       dockerfile: ./services/NSE.Pedido.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://*:5013
+      - ASPNETCORE_URLS=https://+:5013;http://+5012
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=nerdstore
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/nerdstore-certificate.pfx
+    volumes:
+      - ./certs:/https:ro
     restart: on-failure
     depends_on:
       - rabbitmq
